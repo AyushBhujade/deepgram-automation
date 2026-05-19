@@ -1,0 +1,8 @@
+pandas
+selenium
+pyperclip
+selenium_stealth
+undetected_chromedriver
+distutils
+beautifulsoup4
+lxml
