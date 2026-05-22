@@ -1,8 +1,6 @@
 pandas
-selenium
+selenium>=4.0
 pyperclip
-selenium_stealth
-undetected_chromedriver
-distutils
+webdriver-manager
 beautifulsoup4
 lxml

@@ -18,18 +18,29 @@ class DeepgramAutomation:
     def __init__(self):
         options = uc.ChromeOptions()
         options.add_argument("--start-maximized")
-        options.add_argument("--proxy-bypass-list=*")  # Try this
-        options.add_argument("--no-proxy-server")
         options.add_argument("--disable-blink-features=AutomationControlled")
-        options.add_argument("--disable-webrtc")  # Hide real IP
+        options.add_argument("--disable-webrtc")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_argument("--disable-gpu")
         options.add_argument(
-            "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+            "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
         )
-        driver = uc.Chrome(options=options, use_subprocess=True)
-        self.driver = driver
+
+        try:
+            # Force correct Chrome version
+            self.driver = uc.Chrome(
+                options=options,
+                use_subprocess=True,
+                version_main=148   # ← This is the fix
+            )
+            print("✅ Browser launched successfully (Version 148)")
+            
+        except Exception as e:
+            print(f"❌ Failed to launch with version 148: {e}")
+            # Fallback
+            print("Trying fallback method...")
+            self.driver = uc.Chrome(options=options, use_subprocess=True)
 
     def extract_temp_email(self):
         try:
